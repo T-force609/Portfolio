@@ -5,7 +5,7 @@ from contact.models import ContactRequest
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['title', 'project_type', 'description', 'image', 'video', 'link', 'source_code_url']
+        fields = ['id', 'title', 'project_type', 'description', 'image', 'video', 'link', 'source_code_url']
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:

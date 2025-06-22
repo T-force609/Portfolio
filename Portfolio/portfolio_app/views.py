@@ -1,23 +1,58 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics, viewsets, status
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 from .api.serializer import ProjectSerializer, SkillSerializer, ContactMeSerializer
 from .models import Project, Skill
 from contact.models import ContactRequest
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import JsonResponse
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def ContactRequestView(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            # Process your data here
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
 
 class ProjectListView(generics.ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
+    def list (self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({"error": str(e)})
+
+class ProjectDetailView(RetrieveAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    lookup_field = 'id'
+
+    def get(self, request, id):
+        try:
+            project = get_object_or_404(Project, id=id)
+            serializer = ProjectSerializer(project)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_404_NOT_FOUND)
 
 class SkillListView(generics.ListCreateAPIView):
     queryset = Skill.objects.all()
@@ -26,6 +61,7 @@ class SkillListView(generics.ListCreateAPIView):
 class SkillDetialView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+    lookkup_field = 'id'
 
 class AdminPostUpload(APIView):
     parser_class = [MultiPartParser, FormParser]

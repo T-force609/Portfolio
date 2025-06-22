@@ -4,13 +4,14 @@ from django.utils.translation import gettext_lazy as _
 
 
 def upload_to(instance, filename):
-    return 'post/{filename}'.format(filename)
+    return 'post/{filename}'.format(filename=filename)
 
 
 class Project(models.Model):
     Project_Type = (
         ('ML', 'Machine Learning'),
         ('Blender', '3D Art'),
+        ('APP', 'Andriod App'),
         ('WEB', 'Web development'),
     )
     title  = models.CharField(max_length=200)

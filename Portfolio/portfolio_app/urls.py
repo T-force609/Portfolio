@@ -3,5 +3,5 @@ from .views import SkillListView, SkillDetialView, ProjectDetailView, ProjectLis
 app_name = 'portfolio_app'
 
 urlpatterns = [
-    path('contact-requests/', ContactRequestViewSet.as_view({'post': 'create'})),
+    
 ]
