@@ -10,7 +10,7 @@ from ..views import (SkillListView,
 urlpatterns = [
     path('skills/', SkillListView.as_view(), name='skills_list'),
     path('projects/', ProjectListView.as_view(), name='project_list'),
-    path('skills/<int:pk>/', SkillDetialView.as_view(), name='skills_detail'),
+    path('skills/<int:id>/', SkillDetialView.as_view(), name='skills_detail'),
     path('projects/<int:id>/', ProjectDetailView.as_view(), name='project_detail'),
     path('imagefiles/', AdminPostUpload.as_view(), name='imagefiles'),
     path('contactrequests/', ContactRequestViewSet.as_view({'post': 'create'})),

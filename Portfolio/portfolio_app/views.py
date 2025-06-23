@@ -43,7 +43,7 @@ class ProjectListView(generics.ListCreateAPIView):
 
 class ProjectDetailView(RetrieveAPIView):
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    #serializer_class = ProjectSerializer
     lookup_field = 'id'
 
     def get(self, request, id):
@@ -61,7 +61,7 @@ class SkillListView(generics.ListCreateAPIView):
 class SkillDetialView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
-    lookkup_field = 'id'
+    lookup_field = 'id'
 
 class AdminPostUpload(APIView):
     parser_class = [MultiPartParser, FormParser]
