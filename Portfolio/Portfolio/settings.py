@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['codewithaj.com', 'www.codewithaj.com']
+ALLOWED_HOSTS = ['codewithajdev-api.com', 'www.codewithajdev-api.com']
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
