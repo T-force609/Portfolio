@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -87,8 +87,8 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 
 # corsheaders setting
 CORS_ALLOWED_ORIGINS =[
-    'http://127.0.0.1:3000',
-    "http://localhost:3000",
+    'https://codewithajdev.com',
+    "http://www.codewithajdev.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
