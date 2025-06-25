@@ -27,7 +27,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['codewithajdev-api.com', 'www.codewithajdev-api.com']
+ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
@@ -88,11 +94,17 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 # corsheaders setting
 CORS_ALLOWED_ORIGINS =[
     'https://codewithajdev.com',
-    "http://www.codewithajdev.com",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://codewithajdev.onrender.com",
+    "https://www.codewithajdev.onrender.com",
+    "https://codewithajdev.onrender.com", # Add if needed for dev/debug
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
