@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 
 # corsheaders setting
 CORS_ALLOWED_ORIGINS =[
-    'https://codewithajdev.com'
+    'https://codewithajdev.onrender.com'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
