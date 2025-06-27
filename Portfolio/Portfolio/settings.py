@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['codewithajdev-api.onrender.com]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
@@ -40,6 +40,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
     raise ValueError("The SECRET_KEY environment variable is not set.")
 
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME
 
 
 # Application definition
@@ -93,10 +97,9 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 
 # corsheaders setting
 CORS_ALLOWED_ORIGINS =[
-    'https://codewithajdev.com',
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    'https://codewithajdev.com'
 ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 
