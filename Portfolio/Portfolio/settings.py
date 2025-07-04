@@ -55,8 +55,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'contact',
-    'whitenoise.runserver_nostatic',  # Add this
-    'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',  
 ]
 
 MIDDLEWARE = [
