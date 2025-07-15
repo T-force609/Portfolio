@@ -17,17 +17,6 @@ from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
-def ContactRequestView(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            # Process your data here
-            return JsonResponse({'status': 'success'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
-    return JsonResponse({'error': 'Method not allowed'}, status=405)
-
 
 class ProjectListView(generics.ListCreateAPIView):
     queryset = Project.objects.all()
