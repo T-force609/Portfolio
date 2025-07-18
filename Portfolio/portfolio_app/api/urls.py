@@ -10,7 +10,7 @@ from ..views import (SkillListView,
 
 
 router = DefaultRouter()
-router.register('r contact_request', ContactRequestViewSet, name='contact_request')
+router.register(r'contact_request', ContactRequestViewSet, name='contact_request')
 
 
 
