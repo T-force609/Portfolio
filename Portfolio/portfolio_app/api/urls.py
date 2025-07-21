@@ -9,9 +9,6 @@ from ..views import (SkillListView,
                      ContactRequestViewSet)
 
 
-router = DefaultRouter()
-router.register(r'contact_request', ContactRequestViewSet, basename='contact_request')
-
 
 
 
