@@ -47,7 +47,7 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-     def send_notification_email(self, contact_request):
+    def send_notification_email(self, contact_request):
         subject = f"New Contact Request from {contact_request.name}"
         message = f"""
         New contact request received:
@@ -67,4 +67,3 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
             recipient_list,
             fail_silently=False,
         )
-
