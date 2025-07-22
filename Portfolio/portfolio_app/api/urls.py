@@ -8,8 +8,6 @@ from ..views import (SkillListView,
                      ProjectListView, 
                      AdminPostUpload,)
 
-router = DefaultRouter()
-router.register(r'contact_request', ContactRequestViewSet, basename='contact_request')
 
 
 

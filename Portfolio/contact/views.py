@@ -12,37 +12,37 @@ from django.core.mail import send_mail
 class ContactRequestViewSet(viewsets.ModelViewSet):
     queryset = ContactRequest.objects.all()
     serializer_class = ContactMeSerializer
-    http_method_name = ['post']
+    http_method_names = ['post']
+    authentication_classes = []
+    permission_classes = []
 
-    def create(self, request, *arg, **kwarg):
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-
-        self.send_notification_email(serializer.instance)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            {"message": "your request has been submitted successfully"},
-            status= status.HTTP_201_CREATED,
-            headers=headers
-        )
-    
-    def send_notification_email(self, contact_request):
-        subject = f"New Contact Request: {contact_request.name}"
-        message = f"""
-        You have a new contact request
-
-        Name: {contact_request.name}
-        Email: {contact_request.email}
-        Request_Type: {contact_request.get_type_display()}
-        Project Detail: {contact_request.project_details}
-        Budget: {contact_request.deadline or 'Not specified'}
-        Deadline: {contact_request.deadline or 'not specified'}
-        """
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.CONTACT_EMAIL],
-            fail_silently=False,
-        )
+        
+        if not serializer.is_valid():
+            return Response(
+                {
+                    "status": "error",
+                    "errors": serializer.errors
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            self.perform_create(serializer)
+            self.send_notification_email(serializer.instance)
+            return Response(
+                {
+                    "status": "success",
+                    "data": serializer.data
+                },
+                status=status.HTTP_201_CREATED
+            )
+        except Exception as e:
+            return Response(
+                {
+                    "status": "error",
+                    "message": str(e)
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

@@ -27,22 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
-# ALLOWED_HOSTS = ['codewithajdev-api.onrender.com']
-ALLOWED_HOST = []
-=======
 ALLOWED_HOSTS = ['codewithajdev-api.onrender.com']
 
->>>>>>> d58e66c3355f34adae767e5a6e8e60a1d5c6cc90
 
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("The SECRET_KEY environment variable is not set.")
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+# if not SECRET_KEY:
+#     raise ValueError("The SECRET_KEY environment variable is not set.")
 
 
 
@@ -103,10 +98,10 @@ CORS_ALLOWED_ORIGINS =[
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
-CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS']  # Explicitly allow OPTIONS# settings.py
+CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS'] 
 CORS_ALLOW_HEADERS = [
     'content-type',
-    'x-csrftoken',  # ← Add this!
+    'x-csrftoken',  
 ]
 
 CSRF_TRUSTED_ORIGINS = [
