@@ -21,5 +21,4 @@ urlpatterns = [
     path('skills/<int:id>/', SkillDetialView.as_view(), name='skills_detail'),
     path('projects/<int:id>/', ProjectDetailView.as_view(), name='project_detail'),
     path('imagefiles/', AdminPostUpload.as_view(), name='imagefiles'),
-    path('api/', include(router.urls))
-]
+    ]

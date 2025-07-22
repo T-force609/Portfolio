@@ -15,4 +15,23 @@ class SkillSerializer(serializers.ModelSerializer):
 class ContactMeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactRequest
-        fields = "__all__"
+        fields = '__all__'
+    
+    def validate(self, data):
+        # Add custom validation if needed
+        if len(data.get('project_details', '')) < 10:
+            raise serializers.ValidationError("Project details must be at least 10 characters")
+        return data
+
+# In your viewset
+def create(self, request, *args, **kwargs):
+    serializer = self.get_serializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(
+            {
+                "status": "error",
+                "errors": serializer.errors,
+                "message": "Validation failed"
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )

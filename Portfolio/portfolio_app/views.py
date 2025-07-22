@@ -17,17 +17,6 @@ from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
-def ContactRequestView(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            # Process your data here
-            return JsonResponse({'status': 'success'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
-    return JsonResponse({'error': 'Method not allowed'}, status=405)
-
 
 class ProjectListView(generics.ListCreateAPIView):
     queryset = Project.objects.all()
@@ -76,6 +65,7 @@ class AdminPostUpload(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
+<<<<<<< HEAD
 # class ContactRequestViewSet(viewsets.ModelViewSet):
 #     queryset = ContactRequest.objects.all()
 #     serializer_class = ContactMeSerializer
@@ -113,5 +103,44 @@ class AdminPostUpload(APIView):
 #             [settings.CONTACT_EMAIL],
 #             fail_silently=False,
 #         )
+=======
+class ContactRequestViewSet(viewsets.ModelViewSet):
+    queryset = ContactRequest.objects.all()
+    serializer_class = ContactMeSerializer
+    http_method_names = ['post']
+    authentication_classes = []
+    permission_classes = []
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(
+                {
+                    "status": "error",
+                    "errors": serializer.errors
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            self.perform_create(serializer)
+            self.send_notification_email(serializer.instance)
+            return Response(
+                {
+                    "status": "success",
+                    "data": serializer.data
+                },
+                status=status.HTTP_201_CREATED
+            )
+        except Exception as e:
+            return Response(
+                {
+                    "status": "error",
+                    "message": str(e)
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+>>>>>>> d58e66c3355f34adae767e5a6e8e60a1d5c6cc90
 
 

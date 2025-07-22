@@ -22,23 +22,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)x@19%!8lb44w-=vmlfw!+cs-+s%sz#69tdwg!x38#^9=smgr9'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 # ALLOWED_HOSTS = ['codewithajdev-api.onrender.com']
 ALLOWED_HOST = []
+=======
+ALLOWED_HOSTS = ['codewithajdev-api.onrender.com']
 
-# RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-# if RENDER_EXTERNAL_HOSTNAME:
-#     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+>>>>>>> d58e66c3355f34adae767e5a6e8e60a1d5c6cc90
 
 
-# SECRET_KEY = os.environ.get("SECRET_KEY")
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-# if not SECRET_KEY:
-#     raise ValueError("The SECRET_KEY environment variable is not set.")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("The SECRET_KEY environment variable is not set.")
 
 
 
@@ -55,11 +59,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'contact',
+    'contact' 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -97,6 +102,12 @@ CORS_ALLOWED_ORIGINS =[
     'https://codewithajdev.onrender.com'
 ]
 CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS']  # Explicitly allow OPTIONS# settings.py
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'x-csrftoken',  # ← Add this!
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://codewithajdev.onrender.com",
@@ -138,7 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny'
 
     ]
 }
@@ -159,7 +170,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIc_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'custom_admin/static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
