@@ -188,6 +188,7 @@ EMAIL_HOST_USER = 'ajibadejohn30@gmail.com'
 EMAIL_HOST_PASSWORD = 'ajibade9349'
 DEFAULT_FROM_EMAIL = 'ajibadejohn30@gmail.com'
 CONTACT_EMAIL = 'ajibadejohn30@gmail.com'
+ADMIN_EMAIL = 'ajibadejohn30@gmail.com
 
 
 SECURE_BROWSER_XSS_FILTER = True
