@@ -64,6 +64,6 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
             request_type,
             project_detail,
             settings.DEFAULT_FROM_EMAIL,
-            [settings.CONTACT_EMAIL]
+            [settings.CONTACT_EMAIL],
             fail_silently=False,
         )
