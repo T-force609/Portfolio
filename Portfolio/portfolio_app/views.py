@@ -65,42 +65,6 @@ class AdminPostUpload(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
-# class ContactRequestViewSet(viewsets.ModelViewSet):
-#     queryset = ContactRequest.objects.all()
-#     serializer_class = ContactMeSerializer
-#     http_method_names = ['post']
-#     authentication_classes = []
-#     permission_classes = []
 
-#     def create(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-        
-#         if not serializer.is_valid():
-#             return Response(
-#                 {
-#                     "status": "error",
-#                     "errors": serializer.errors
-#                 },
-#                 status=status.HTTP_400_BAD_REQUEST
-#             )
-            
-#         try:
-#             self.perform_create(serializer)
-#             self.send_notification_email(serializer.instance)
-#             return Response(
-#                 {
-#                     "status": "success",
-#                     "data": serializer.data
-#                 },
-#                 status=status.HTTP_201_CREATED
-#             )
-#         except Exception as e:
-#             return Response(
-#                 {
-#                     "status": "error",
-#                     "message": str(e)
-#                 },
-#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-#             )
 
 
