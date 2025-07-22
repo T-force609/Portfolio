@@ -54,7 +54,7 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
         
         Name: {contact_request.name}
         Email: {contact_request.email}
-        Request_Type: {contact_request.get_type_display()}
+        Request_Type: {contact_request.request_type}
         Project Detail: {contact_request.project_details}
         Budget: {contact_request.deadline or 'Not specified'}
         Deadline: {contact_request.deadline or 'not specified'}
