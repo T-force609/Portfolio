@@ -61,9 +61,9 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
         recipient_list = [settings.ADMIN_EMAIL]  # Make sure this is set in settings.py
         
         send_mail(
-            subject,
-            message,
-            from_email,
-            recipient_list,
+            request_type,
+            project_detail,
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.CONTACT_EMAIL]
             fail_silently=False,
         )
