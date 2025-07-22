@@ -98,6 +98,8 @@ CORS_ALLOWED_ORIGINS =[
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+# settings.py
+CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS']  # Explicitly allow OPTIONS
 
 CSRF_TRUSTED_ORIGINS = [
     "https://codewithajdev.onrender.com",
