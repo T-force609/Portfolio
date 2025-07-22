@@ -54,15 +54,17 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
         
         Name: {contact_request.name}
         Email: {contact_request.email}
-        Subject: {contact_request.subject}
-        Message: {contact_request.message}
+        Request_Type: {contact_request.get_type_display()}
+        Project Detail: {contact_request.project_details}
+        Budget: {contact_request.deadline or 'Not specified'}
+        Deadline: {contact_request.deadline or 'not specified'}
         """
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [settings.ADMIN_EMAIL]  # Make sure this is set in settings.py
         
         send_mail(
-            request_type,
-            project_detail,
+            subject,
+            message,
             settings.DEFAULT_FROM_EMAIL,
             [settings.CONTACT_EMAIL],
             fail_silently=False,
