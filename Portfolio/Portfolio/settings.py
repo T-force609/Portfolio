@@ -97,6 +97,7 @@ CORS_ALLOWED_ORIGINS =[
     'https://codewithajdev.onrender.com'
 ]
 CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 
 CSRF_TRUSTED_ORIGINS = [
     "https://codewithajdev.onrender.com",
