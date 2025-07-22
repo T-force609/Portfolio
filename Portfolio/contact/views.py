@@ -12,12 +12,42 @@ from django.core.mail import send_mail
 class ContactRequestViewSet(viewsets.ModelViewSet):
     queryset = ContactRequest.objects.all()
     serializer_class = ContactMeSerializer
-    
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        self.send_notification_email(instance)
-    
-    def send_notification_email(self, contact_request):
+    http_method_names = ['post']
+    authentication_classes = []
+    permission_classes = []
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(
+                {
+                    "status": "error",
+                    "errors": serializer.errors
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            self.perform_create(serializer)
+            self.send_notification_email(serializer.instance)
+            return Response(
+                {
+                    "status": "success",
+                    "data": serializer.data
+                },
+                status=status.HTTP_201_CREATED
+            )
+        except Exception as e:
+            return Response(
+                {
+                    "status": "error",
+                    "message": str(e)
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+     def send_notification_email(self, contact_request):
         subject = f"New Contact Request from {contact_request.name}"
         message = f"""
         New contact request received:
@@ -37,3 +67,4 @@ class ContactRequestViewSet(viewsets.ModelViewSet):
             recipient_list,
             fail_silently=False,
         )
+
