@@ -11,7 +11,7 @@ from django.core.mail import send_mail
 
 class ContactRequestViewSet(viewsets.ModelViewSet):
     queryset = ContactRequest.objects.all()
-    serializer_class = ContactRequestSerializer
+    serializer_class = ContactMeSerializer
     
     def perform_create(self, serializer):
         instance = serializer.save()
