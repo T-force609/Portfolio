@@ -25,20 +25,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)x@19%!8lb44w-=vmlfw!+cs-+s%sz#69tdwg!x38#^9=smgr9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['codewithajdev-api.onrender.com']
+# ALLOWED_HOSTS = ['codewithajdev-api.onrender.com']
+ALLOWED_HOST = []
+
+# RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+# if RENDER_EXTERNAL_HOSTNAME:
+#     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-if not SECRET_KEY:
-    raise ValueError("The SECRET_KEY environment variable is not set.")
+# if not SECRET_KEY:
+#     raise ValueError("The SECRET_KEY environment variable is not set.")
 
 
 
@@ -174,7 +174,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sntp.ajibadejohn30@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ajibadejohn30@gmail.com'
