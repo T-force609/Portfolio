@@ -11,40 +11,29 @@ from django.core.mail import send_mail
 
 class ContactRequestViewSet(viewsets.ModelViewSet):
     queryset = ContactRequest.objects.all()
-    serializer_class = ContactMeSerializer
-    http_method_name = ['post']
-
-    def create(self, request, *arg, **kwarg):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-
-        self.send_notification_email(serializer.instance)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            {"message": "your request has been submitted successfully"},
-            status= status.HTTP_201_CREATED,
-            headers=headers
-        )
+    serializer_class = ContactRequestSerializer
+    
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        self.send_notification_email(instance)
     
     def send_notification_email(self, contact_request):
-        subject = f"New Contact Request: {contact_request.name}"
+        subject = f"New Contact Request from {contact_request.name}"
         message = f"""
-        You have a new contact request
-
+        New contact request received:
+        
         Name: {contact_request.name}
         Email: {contact_request.email}
-        Request_Type: {contact_request.get_type_display()}
-        Project Detail: {contact_request.project_details}
-        Budget: {contact_request.deadline or 'Not specified'}
-        Deadline: {contact_request.deadline or 'not specified'}
+        Subject: {contact_request.subject}
+        Message: {contact_request.message}
         """
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [settings.ADMIN_EMAIL]  # Make sure this is set in settings.py
+        
         send_mail(
             subject,
             message,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.CONTACT_EMAIL],
+            from_email,
+            recipient_list,
             fail_silently=False,
         )
-
-
