@@ -12,7 +12,7 @@ class ContactRequest(models.Model):
     project_details = models.TextField()
     email = models.EmailField()
     budget = models.CharField(max_length=50, blank=True)
-    deadline = models.DateTimeField(blank=True)
+    deadline = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now=True)
 
 
